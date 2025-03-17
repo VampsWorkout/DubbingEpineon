@@ -1,0 +1,2114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Dubbing - Expand Your Global Reach</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Add Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Helvetica:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Helvetica', sans-serif;
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 255, 157, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 184, 255, 0.15) 0%, transparent 50%);
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(0, 255, 157, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 157, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.8;
+            animation: gridMove 30s linear infinite;
+            z-index: 3;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(40px); }
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 3;
+        }
+
+        .shape {
+            position: absolute;
+            background: linear-gradient(45deg, rgba(0, 255, 157, 0.1), rgba(0, 184, 255, 0.1));
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: shapeFloat 20s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            bottom: -150px;
+            right: -150px;
+            animation-delay: -5s;
+        }
+
+        .shape:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -10s;
+        }
+
+        @keyframes shapeFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50px, 50px) rotate(90deg); }
+            50% { transform: translate(0, 100px) rotate(180deg); }
+            75% { transform: translate(-50px, 50px) rotate(270deg); }
+        }
+
+        .world-map {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.15;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 500'%3E%3Cpath fill='none' stroke='%2300ff9d' stroke-width='1' d='M0,0 L1000,0 L1000,500 L0,500 Z'/%3E%3Cpath fill='none' stroke='%2300ff9d' stroke-width='1' d='M0,125 L1000,125 M0,250 L1000,250 M0,375 L1000,375'/%3E%3Cpath fill='none' stroke='%2300ff9d' stroke-width='1' d='M125,0 L125,500 M250,0 L250,500 M375,0 L375,500 M500,0 L500,500 M625,0 L625,500 M750,0 L750,500 M875,0 L875,500'/%3E%3Cpath fill='none' stroke='%2300ff9d' stroke-width='1' d='M100,100 C150,50 200,150 250,100 C300,50 350,150 400,100 C450,50 500,150 550,100 C600,50 650,150 700,100 C750,50 800,150 850,100'/%3E%3Cpath fill='none' stroke='%2300ff9d' stroke-width='1' d='M100,400 C150,350 200,450 250,400 C300,350 350,450 400,400 C450,350 500,450 550,400 C600,350 650,450 700,400 C750,350 800,450 850,400'/%3E%3Cpath fill='none' stroke='%2300ff9d' stroke-width='1' d='M100,250 C150,200 200,300 250,250 C300,200 350,300 400,250 C450,200 500,300 550,250 C600,200 650,300 700,250 C750,200 800,300 850,250'/%3E%3C/svg%3E");
+            background-size: cover;
+            animation: mapPulse 8s ease-in-out infinite;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 60%);
+            -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 60%);
+        }
+
+        @keyframes mapPulse {
+            0%, 100% { opacity: 0.15; transform: scale(1); }
+            50% { opacity: 0.2; transform: scale(1.05); }
+        }
+
+        .connection-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            z-index: 3;
+        }
+
+        .connection-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 157, 0.2), transparent);
+            height: 1px;
+            width: 150px;
+            animation: connectionFlow 4s linear infinite;
+        }
+
+        @keyframes connectionFlow {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(200%) rotate(45deg); }
+        }
+
+        .neon-button {
+            position: relative;
+            background: #00ff9d;
+            color: #000;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-weight: bold;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.5);
+            overflow: hidden;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .neon-button::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ff9d, #00b8ff, #00ff9d);
+            border-radius: 9999px;
+            z-index: -1;
+            animation: borderGlow 3s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .neon-button:hover::before {
+            opacity: 1;
+        }
+
+        .neon-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.8);
+        }
+
+        @keyframes borderGlow {
+            0% { filter: blur(5px); }
+            50% { filter: blur(8px); }
+            100% { filter: blur(5px); }
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link {
+            position: relative;
+            color: white;
+            text-decoration: none;
+            padding: 0.25rem 0.75rem;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #00ff9d;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            transition: right 0.3s ease;
+            z-index: 100;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 0;
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .shape:nth-child(1) {
+                width: 200px;
+                height: 200px;
+            }
+
+            .shape:nth-child(2) {
+                width: 300px;
+                height: 300px;
+            }
+
+            .shape:nth-child(3) {
+                width: 150px;
+                height: 150px;
+            }
+
+            .connection-line {
+                width: 100px;
+            }
+        }
+
+        /* Add new styles for the Challenge & Solution section */
+        .challenge-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .challenge-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 157, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.1);
+        }
+
+        .solution-card {
+            background: linear-gradient(135deg, rgba(0, 255, 157, 0.1), rgba(0, 184, 255, 0.1));
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.2);
+        }
+
+        .icon-wrapper {
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 255, 157, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .challenge-card:hover .icon-wrapper {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .solution-card:hover .icon-wrapper {
+            background: rgba(0, 255, 157, 0.2);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Add styles for the interactive demo */
+        .demo-container {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            border-radius: 1rem;
+            overflow: hidden;
+            margin-bottom: 4rem;
+        }
+
+        .demo-header {
+            background: rgba(0, 255, 157, 0.05);
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+        }
+
+        .demo-steps {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .demo-steps::-webkit-scrollbar {
+            display: none;
+        }
+
+        .demo-step {
+            flex: 0 0 300px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .demo-step:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 157, 0.3);
+            background: rgba(0, 255, 157, 0.05);
+        }
+
+        .demo-step.active {
+            border-color: #00ff9d;
+            background: rgba(0, 255, 157, 0.1);
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: rgba(0, 255, 157, 0.1);
+            border: 2px solid #00ff9d;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #00ff9d;
+        }
+
+        .demo-preview {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .language-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        .language-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            border-radius: 9999px;
+            color: #00ff9d;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-btn:hover {
+            background: rgba(0, 255, 157, 0.2);
+        }
+
+        .language-btn.active {
+            background: #00ff9d;
+            color: #000;
+        }
+
+        .demo-progress {
+            height: 4px;
+            background: rgba(0, 255, 157, 0.1);
+            border-radius: 2px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #00ff9d;
+            width: 0;
+            transition: width 0.3s ease;
+        }
+
+        @keyframes progress {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        .progress-bar.active {
+            animation: progress 2s linear forwards;
+        }
+
+        /* Add styles for Why Choose Us section */
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 255, 157, 0.05), rgba(0, 184, 255, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 157, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.1);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(0, 255, 157, 0.1);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            background: rgba(0, 255, 157, 0.2);
+            transform: scale(1.1);
+        }
+
+        .feature-number {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 4rem;
+            font-weight: bold;
+            color: rgba(0, 255, 157, 0.1);
+            line-height: 1;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-number {
+            color: rgba(0, 255, 157, 0.2);
+            transform: scale(1.1);
+        }
+
+        .stats-container {
+            background: rgba(0, 255, 157, 0.05);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00ff9d;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Add styles for the globe visualization */
+        .globe-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            margin: 0 auto 4rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 1rem;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .globe-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .globe-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+            pointer-events: none;
+        }
+
+        .globe-stats {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+        }
+
+        .globe-stat {
+            text-align: center;
+            color: white;
+        }
+
+        .globe-stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ff9d;
+        }
+
+        .globe-stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Add styles for the map container */
+        .map-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+            opacity: 0.5;
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.4) 0%, rgba(30, 41, 59, 0.4) 100%);
+            z-index: 2;
+        }
+
+        .cursor-indicator {
+            position: fixed;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            pointer-events: none;
+            mix-blend-mode: difference;
+            opacity: 0.5;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+
+        .map-style-switcher {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .style-button {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .style-button.active {
+            box-shadow: 0 0 0 2px white;
+        }
+
+        /* Ensure content stays above the map */
+        .container {
+            position: relative;
+            z-index: 4;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- ========== HEADER SECTION ========== -->
+    <header class="fixed w-full z-50 glass-nav">
+        <nav class="container mx-auto px-4 py-2">
+            <div class="flex items-center justify-between">
+                <div class="text-xl font-bold text-white">Epineon</div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#pricing" class="nav-link">Pricing</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button class="text-white hover:text-green-400 transition-colors text-sm hidden md:block">Login</button>
+                    <button class="neon-button hidden md:block">Get Started</button>
+                    <button class="text-white text-2xl md:hidden" id="mobile-menu-button">☰</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== MOBILE MENU ========== -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="mobile-menu-close" id="mobile-menu-close">×</button>
+        <div class="flex flex-col space-y-4 mt-8">
+            <a href="#features" class="mobile-nav-link">Features</a>
+            <a href="#pricing" class="mobile-nav-link">Pricing</a>
+            <a href="#about" class="mobile-nav-link">About</a>
+            <a href="#contact" class="mobile-nav-link">Contact</a>
+            <button class="neon-button w-full mt-4">Get Started</button>
+            <button class="text-white text-center mt-4">Login</button>
+        </div>
+    </div>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section id="hero" class="h-screen gradient-bg text-white relative overflow-hidden flex items-center">
+        <!-- Map Container -->
+        <div id="map" class="map-container"></div>
+        <div class="map-overlay"></div>
+        
+        <!-- Map Style Switcher -->
+        <div class="map-style-switcher">
+            <button class="style-button active" data-style="dark" style="background-color: #1a1a1a;" title="Dark"></button>
+            <button class="style-button" data-style="light" style="background-color: #f5f5f5;" title="Light"></button>
+            <button class="style-button" data-style="satellite" style="background-color: #143d6b;" title="Satellite"></button>
+            <button class="style-button" data-style="streets" style="background-color: #b5d0d0;" title="Streets"></button>
+        </div>
+
+        <!-- Cursor Indicator -->
+        <div id="cursor-indicator" class="cursor-indicator"></div>
+
+        <!-- Dynamic Background Elements -->
+        <div class="grid-pattern"></div>
+        <div class="connection-lines">
+            <div class="connection-line" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+            <div class="connection-line" style="top: 40%; left: 30%; animation-delay: 1s;"></div>
+            <div class="connection-line" style="top: 60%; left: 50%; animation-delay: 2s;"></div>
+            <div class="connection-line" style="top: 80%; left: 70%; animation-delay: 3s;"></div>
+        </div>
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+
+        <!-- Content Container -->
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+                    Break Language Barriers & Reach the World Instantly
+                </h1>
+                <p class="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 text-gray-200">
+                    Upload your video, provide a voice sample, choose a language, and let our AI-powered dubbing tool do the rest seamlessly and ethically.
+                </p>
+                <button class="neon-button">
+                    Go Global Now
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== THE CHALLENGE & OUR SOLUTION SECTION ========== -->
+    <section id="features" class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 relative z-10 text-white">
+        <div class="container mx-auto px-4 py-20">
+            <!-- Interactive Demo -->
+            <div class="demo-container max-w-6xl mx-auto">
+                <div class="demo-header">
+                    <h3 class="text-xl font-bold text-center">See How It Works</h3>
+                </div>
+                <div class="demo-steps justify-center">
+                    <!-- Step 1: Upload -->
+                    <div class="demo-step active">
+                        <div class="step-number">1</div>
+                        <h4 class="font-bold mb-2">Upload Your Video</h4>
+                        <p class="text-gray-300 text-sm">Upload your wellness video and provide a voice sample</p>
+                        <div class="demo-preview">
+                            <svg class="w-16 h-16 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Process -->
+                    <div class="demo-step">
+                        <div class="step-number">2</div>
+                        <h4 class="font-bold mb-2">AI Processing</h4>
+                        <p class="text-gray-300 text-sm">Our AI analyzes and processes your content</p>
+                        <div class="demo-preview">
+                            <svg class="w-16 h-16 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            <div class="demo-progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Preview -->
+                    <div class="demo-step">
+                        <div class="step-number">3</div>
+                        <h4 class="font-bold mb-2">Preview & Download</h4>
+                        <p class="text-gray-300 text-sm">Preview your dubbed video and download</p>
+                        <div class="demo-preview">
+                            <svg class="w-16 h-16 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">The Challenge & Our Solution</h2>
+                <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+                    Breaking down language barriers in wellness content shouldn't be complicated. We've made it simple.
+                </p>
+            </div>
+
+            <!-- Challenges Grid -->
+            <div class="grid md:grid-cols-2 gap-8 mb-16">
+                <!-- Challenge 1 -->
+                <div class="challenge-card p-6 rounded-xl">
+                    <div class="icon-wrapper">
+                        <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Language Barriers</h3>
+                    <p class="text-gray-300">
+                        Traditional dubbing is expensive, time-consuming, and often loses the authentic voice of wellness creators.
+                    </p>
+                </div>
+
+                <!-- Challenge 2 -->
+                <div class="challenge-card p-6 rounded-xl">
+                    <div class="icon-wrapper">
+                        <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Time & Cost</h3>
+                    <p class="text-gray-300">
+                        Professional dubbing can take weeks and cost thousands, making it inaccessible for many creators.
+                    </p>
+                </div>
+
+                <!-- Challenge 3 -->
+                <div class="challenge-card p-6 rounded-xl">
+                    <div class="icon-wrapper">
+                        <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Quality Concerns</h3>
+                    <p class="text-gray-300">
+                        Many automated solutions produce robotic, unnatural-sounding voices that don't resonate with audiences.
+                    </p>
+                </div>
+
+                <!-- Challenge 4 -->
+                <div class="challenge-card p-6 rounded-xl">
+                    <div class="icon-wrapper">
+                        <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Ethical Considerations</h3>
+                    <p class="text-gray-300">
+                        Maintaining authenticity and ethical standards while scaling content across languages is crucial.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Solution -->
+            <div class="solution-card p-8 rounded-xl text-center">
+                <div class="max-w-3xl mx-auto">
+                    <div class="icon-wrapper mx-auto">
+                        <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Our AI-Powered Solution</h3>
+                    <p class="text-gray-200 text-lg mb-6">
+                        We combine cutting-edge AI technology with ethical considerations to provide instant, high-quality dubbing that maintains your authentic voice and message.
+                    </p>
+                    <ul class="text-left space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Instant dubbing in multiple languages
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Maintains your authentic voice and tone
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Cost-effective and time-saving
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Built with ethical AI principles
+                        </li>
+                    </ul>
+                    <button class="neon-button">
+                        Try It Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== WHY CHOOSE US SECTION ========== -->
+    <section id="why-choose-us" class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 relative z-10 text-white">
+        <div class="container mx-auto px-4 py-20">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Choose Us?</h2>
+                <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+                    Empowering wellness entrepreneurs to reach global audiences with authentic, localized content
+                </p>
+            </div>
+
+            <!-- Interactive Globe -->
+            <div class="globe-container">
+                <div id="globe" class="globe-canvas"></div>
+                <div class="globe-overlay"></div>
+                <div class="globe-stats">
+                    <div class="globe-stat">
+                        <div class="globe-stat-number">50+</div>
+                        <div class="globe-stat-label">Countries Reached</div>
+                    </div>
+                    <div class="globe-stat">
+                        <div class="globe-stat-number">1M+</div>
+                        <div class="globe-stat-label">Wellness Videos</div>
+                    </div>
+                    <div class="globe-stat">
+                        <div class="globe-stat-number">95%</div>
+                        <div class="globe-stat-label">Engagement Rate</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="feature-number">01</div>
+                    <div class="feature-icon">
+                        <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Instant Global Reach</h3>
+                    <p class="text-gray-300">
+                        Transform your wellness content into multiple languages instantly, reaching new markets without the traditional barriers.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                    <div class="feature-number">02</div>
+                    <div class="feature-icon">
+                        <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Authentic Voice</h3>
+                    <p class="text-gray-300">
+                        Maintain your unique wellness brand voice across all languages, building trust with global audiences.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card">
+                    <div class="feature-number">03</div>
+                    <div class="feature-icon">
+                        <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Cost-Effective Growth</h3>
+                    <p class="text-gray-300">
+                        Scale your wellness business globally at a fraction of traditional localization costs.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="feature-card">
+                    <div class="feature-number">04</div>
+                    <div class="feature-icon">
+                        <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Wellness-Focused Languages</h3>
+                    <p class="text-gray-300">
+                        Specialized support for wellness terminology in 50+ languages, ensuring accurate translation of health and wellness concepts.
+                    </p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="feature-card">
+                    <div class="feature-number">05</div>
+                    <div class="feature-icon">
+                        <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">HIPAA Compliant</h3>
+                    <p class="text-gray-300">
+                        Secure handling of sensitive wellness content with enterprise-grade security and privacy.
+                    </p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="feature-card">
+                    <div class="feature-number">06</div>
+                    <div class="feature-icon">
+                        <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Wellness Expert Support</h3>
+                    <p class="text-gray-300">
+                        Dedicated support team with expertise in wellness content localization.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-container">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Languages Supported</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">90%</div>
+                        <div class="stat-label">Cost Savings</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Expert Support</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">HIPAA Compliant</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== WHAT DO YOU GET IN RETURN SECTION ========== -->
+    <section id="benefits" class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 relative z-10 text-white">
+        <div class="container mx-auto px-4 py-20">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">What Do You Get in Return?</h2>
+                <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+                    Transform your wellness content into a global success story with our comprehensive dubbing solution
+                </p>
+            </div>
+
+            <!-- Numerical Visualizations -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Market Reach Visualization -->
+                <div class="relative bg-gradient-to-br from-green-500/10 to-blue-500/10 p-8 rounded-xl border border-green-500/20">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-green-500/5 rounded-full blur-3xl"></div>
+                    <div class="relative">
+                        <div class="text-4xl font-bold mb-2">
+                            <span class="counter" data-target="50">0</span>+
+                        </div>
+                        <div class="text-xl font-semibold mb-4">New Markets</div>
+                        <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-green-500 to-blue-500 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <p class="text-gray-300 mt-4">Access new markets and audiences across multiple languages</p>
+                    </div>
+                </div>
+
+                <!-- Revenue Growth Visualization -->
+                <div class="relative bg-gradient-to-br from-blue-500/10 to-purple-500/10 p-8 rounded-xl border border-blue-500/20">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl"></div>
+                    <div class="relative">
+                        <div class="text-4xl font-bold mb-2">
+                            <span class="counter" data-target="300">0</span>%
+                        </div>
+                        <div class="text-xl font-semibold mb-4">Revenue Growth</div>
+                        <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <p class="text-gray-300 mt-4">Average revenue increase for global market expansion</p>
+                    </div>
+                </div>
+
+                <!-- Time Savings Visualization -->
+                <div class="relative bg-gradient-to-br from-purple-500/10 to-pink-500/10 p-8 rounded-xl border border-purple-500/20">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-3xl"></div>
+                    <div class="relative">
+                        <div class="text-4xl font-bold mb-2">
+                            <span class="counter" data-target="90">0</span>%
+                        </div>
+                        <div class="text-xl font-semibold mb-4">Time Saved</div>
+                        <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <p class="text-gray-300 mt-4">Reduction in content localization time</p>
+                    </div>
+                </div>
+
+                <!-- Engagement Rate Visualization -->
+                <div class="relative bg-gradient-to-br from-pink-500/10 to-red-500/10 p-8 rounded-xl border border-pink-500/20">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-pink-500/5 rounded-full blur-3xl"></div>
+                    <div class="relative">
+                        <div class="text-4xl font-bold mb-2">
+                            <span class="counter" data-target="85">0</span>%
+                        </div>
+                        <div class="text-xl font-semibold mb-4">Engagement Rate</div>
+                        <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-pink-500 to-red-500 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <p class="text-gray-300 mt-4">Higher engagement in localized content</p>
+                    </div>
+                </div>
+
+                <!-- Cost Reduction Visualization -->
+                <div class="relative bg-gradient-to-br from-red-500/10 to-orange-500/10 p-8 rounded-xl border border-red-500/20">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-red-500/5 rounded-full blur-3xl"></div>
+                    <div class="relative">
+                        <div class="text-4xl font-bold mb-2">
+                            <span class="counter" data-target="75">0</span>%
+                        </div>
+                        <div class="text-xl font-semibold mb-4">Cost Reduction</div>
+                        <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-red-500 to-orange-500 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <p class="text-gray-300 mt-4">Lower localization costs compared to traditional methods</p>
+                    </div>
+                </div>
+
+                <!-- Customer Satisfaction Visualization -->
+                <div class="relative bg-gradient-to-br from-orange-500/10 to-yellow-500/10 p-8 rounded-xl border border-orange-500/20">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-orange-500/5 rounded-full blur-3xl"></div>
+                    <div class="relative">
+                        <div class="text-4xl font-bold mb-2">
+                            <span class="counter" data-target="95">0</span>%
+                        </div>
+                        <div class="text-xl font-semibold mb-4">Customer Satisfaction</div>
+                        <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <p class="text-gray-300 mt-4">Satisfaction rate among global audience</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Value Proposition -->
+            <div class="mt-16 text-center">
+                <div class="max-w-3xl mx-auto bg-gradient-to-r from-green-500/10 to-blue-500/10 p-8 rounded-xl border border-green-500/20">
+                    <h3 class="text-2xl font-bold mb-4">Ready to Transform Your Global Reach?</h3>
+                    <p class="text-gray-300 mb-6">
+                        Join thousands of wellness creators who have already expanded their reach and grown their business with our AI-powered dubbing solution.
+                    </p>
+                    <button class="neon-button">
+                        Start Your Global Journey
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SOCIAL PROOF SECTION ========== -->
+    <section id="social-proof" class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 relative z-10 text-white">
+        <div class="container mx-auto px-4 py-20">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Trusted by Wellness Leaders</h2>
+                <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+                    Join thousands of wellness creators who have transformed their global reach with our AI-powered dubbing solution
+                </p>
+            </div>
+
+            <!-- Testimonials Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <!-- Testimonial 1 -->
+                <div class="bg-gradient-to-br from-green-500/10 to-blue-500/10 p-6 rounded-xl border border-green-500/20">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Sarah Johnson" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Sarah Johnson</h4>
+                            <p class="text-gray-400 text-sm">Yoga Instructor</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        "Epineon has revolutionized how I reach my global audience. My yoga tutorials now resonate with students worldwide, maintaining the authentic connection I strive for."
+                    </p>
+                    <div class="flex text-yellow-400">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-gradient-to-br from-blue-500/10 to-purple-500/10 p-6 rounded-xl border border-blue-500/20">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Michael Chen" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Michael Chen</h4>
+                            <p class="text-gray-400 text-sm">Meditation Coach</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        "The quality of the dubbing is incredible. My meditation guides now feel natural in multiple languages, helping me reach and connect with a global audience."
+                    </p>
+                    <div class="flex text-yellow-400">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-gradient-to-br from-purple-500/10 to-pink-500/10 p-6 rounded-xl border border-purple-500/20">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Emma Rodriguez" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Emma Rodriguez</h4>
+                            <p class="text-gray-400 text-sm">Nutritionist</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        "The platform's ease of use and quality of translations have helped me expand my nutrition coaching business to multiple countries. Highly recommended!"
+                    </p>
+                    <div class="flex text-yellow-400">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trust Indicators -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-green-400 mb-2">10K+</div>
+                    <div class="text-gray-400">Active Users</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-green-400 mb-2">50+</div>
+                    <div class="text-gray-400">Languages</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-green-400 mb-2">1M+</div>
+                    <div class="text-gray-400">Videos Processed</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-green-400 mb-2">98%</div>
+                    <div class="text-gray-400">Satisfaction Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== WHO CAN BENEFIT SECTION ========== -->
+    <section id="who-can-benefit" class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 relative z-10 text-white">
+        <div class="container mx-auto px-4 py-20">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Who Can Benefit?</h2>
+                <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+                    Our AI-powered dubbing solution is perfect for wellness professionals and content creators looking to expand their global reach
+                </p>
+            </div>
+
+            <!-- Target Audience Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Yoga & Fitness Instructors -->
+                <div class="bg-gradient-to-br from-green-500/10 to-blue-500/10 p-6 rounded-xl border border-green-500/20">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold">Yoga & Fitness Instructors</h3>
+                    </div>
+                    <p class="text-gray-300">
+                        Reach students worldwide with perfectly dubbed workout videos and yoga tutorials in multiple languages.
+                    </p>
+                </div>
+
+                <!-- Meditation & Mindfulness Coaches -->
+                <div class="bg-gradient-to-br from-blue-500/10 to-purple-500/10 p-6 rounded-xl border border-blue-500/20">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold">Meditation & Mindfulness Coaches</h3>
+                    </div>
+                    <p class="text-gray-300">
+                        Share your guided meditations and mindfulness practices with a global audience while maintaining the authentic voice.
+                    </p>
+                </div>
+
+                <!-- Nutritionists & Dietitians -->
+                <div class="bg-gradient-to-br from-purple-500/10 to-pink-500/10 p-6 rounded-xl border border-purple-500/20">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold">Nutritionists & Dietitians</h3>
+                    </div>
+                    <p class="text-gray-300">
+                        Expand your reach with localized nutrition advice and meal planning content in multiple languages.
+                    </p>
+                </div>
+
+                <!-- Wellness Bloggers & Influencers -->
+                <div class="bg-gradient-to-br from-pink-500/10 to-red-500/10 p-6 rounded-xl border border-pink-500/20">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-pink-500/20 rounded-full flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold">Wellness Bloggers & Influencers</h3>
+                    </div>
+                    <p class="text-gray-300">
+                        Grow your global audience with engaging wellness content in multiple languages.
+                    </p>
+                </div>
+
+                <!-- Health Coaches -->
+                <div class="bg-gradient-to-br from-red-500/10 to-orange-500/10 p-6 rounded-xl border border-red-500/20">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold">Health Coaches</h3>
+                    </div>
+                    <p class="text-gray-300">
+                        Share your health coaching expertise with clients worldwide through localized video content.
+                    </p>
+                </div>
+
+                <!-- Wellness Brands -->
+                <div class="bg-gradient-to-br from-orange-500/10 to-yellow-500/10 p-6 rounded-xl border border-orange-500/20">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-orange-500/20 rounded-full flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold">Wellness Brands</h3>
+                    </div>
+                    <p class="text-gray-300">
+                        Scale your wellness brand globally with professional-quality dubbed marketing content.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="mt-16 text-center">
+                <div class="max-w-3xl mx-auto bg-gradient-to-r from-green-500/10 to-blue-500/10 p-8 rounded-xl border border-green-500/20">
+                    <h3 class="text-2xl font-bold mb-4">Ready to Expand Your Global Reach?</h3>
+                    <p class="text-gray-300 mb-6">
+                        Whether you're a wellness professional or brand, our AI-powered dubbing solution can help you connect with audiences worldwide.
+                    </p>
+                    <button class="neon-button">
+                        Start Your Global Journey
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA & CLOSING SECTION ========== -->
+    <section class="bg-gray-900 relative overflow-hidden">
+        <!-- CTA Part -->
+        <div class="container mx-auto px-4 py-12">
+            <div class="max-w-4xl mx-auto text-center">
+                <!-- Animated Background Elements -->
+                <div class="absolute inset-0 overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-green-500/10 to-blue-500/10 animate-gradient"></div>
+                    <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+                </div>
+
+                <!-- Content -->
+                <div class="relative z-10">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+                        Ready to Transform Your Global Reach?
+                    </h2>
+                    <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                        Join thousands of wellness creators who have already expanded their reach and grown their business with our AI-powered dubbing solution.
+                    </p>
+                    
+                    <!-- Feature Highlights -->
+                    <div class="grid md:grid-cols-3 gap-6 mb-12">
+                        <div class="bg-white/5 backdrop-blur-sm p-4 rounded-lg">
+                            <svg class="w-8 h-8 text-green-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <p class="text-sm">Instant Dubbing</p>
+                        </div>
+                        <div class="bg-white/5 backdrop-blur-sm p-4 rounded-lg">
+                            <svg class="w-8 h-8 text-green-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <p class="text-sm">50+ Languages</p>
+                        </div>
+                        <div class="bg-white/5 backdrop-blur-sm p-4 rounded-lg">
+                            <svg class="w-8 h-8 text-green-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <p class="text-sm">Natural Voice</p>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button class="neon-button text-lg px-8 py-4">
+                            Start Free Trial
+                        </button>
+                        <button class="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-full text-lg transition-all duration-300">
+                            Schedule Demo
+                        </button>
+                    </div>
+
+                    <!-- Trust Indicators -->
+                    <div class="mt-12 flex flex-wrap justify-center gap-8 text-gray-400 text-sm">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                            </svg>
+                            HIPAA Compliant
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                            </svg>
+                            24/7 Support
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                            </svg>
+                            Money-back Guarantee
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Closing Part -->
+        <div class="container mx-auto px-4 py-20">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="relative z-10">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+                        Your Journey to Global Wellness Starts Here
+                    </h2>
+                    <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+                        Join the revolution in wellness content creation. Break down language barriers, reach new audiences, and grow your impact with our AI-powered dubbing solution.
+                    </p>
+
+                    <!-- Key Benefits Grid -->
+                    <div class="grid md:grid-cols-2 gap-8 mb-16">
+                        <div class="bg-white/5 backdrop-blur-sm p-6 rounded-lg text-left">
+                            <div class="flex items-start mb-4">
+                                <div class="flex-shrink-0">
+                                    <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                    </svg>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-semibold text-white mb-2">Lightning Fast Setup</h3>
+                                    <p class="text-gray-400">Get started in minutes with our intuitive platform. No technical expertise required.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white/5 backdrop-blur-sm p-6 rounded-lg text-left">
+                            <div class="flex items-start mb-4">
+                                <div class="flex-shrink-0">
+                                    <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-semibold text-white mb-2">24/7 Support</h3>
+                                    <p class="text-gray-400">Our dedicated team is always here to help you succeed in your global journey.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Final CTA -->
+                    <div class="space-y-6">
+                        <button class="neon-button text-lg px-12 py-4">
+                            Start Your Free Trial Today
+                        </button>
+                        <p class="text-gray-400 text-sm">
+                            No credit card required • 14-day free trial • Cancel anytime
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER SECTION ========== -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-xl font-semibold mb-4">Epineon</h3>
+                    <p class="text-gray-400">Transforming Wellness Content Globally</p>
+                </div>
+                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
+                    <div>
+                        <h4 class="text-lg font-semibold mb-2">About</h4>
+                        <ul class="text-gray-400">
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#features">Features</a></li>
+                            <li><a href="#pricing">Pricing</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-2">Support</h4>
+                        <ul class="text-gray-400">
+                            <li><a href="#faq">FAQ</a></li>
+                            <li><a href="#terms">Terms of Service</a></li>
+                            <li><a href="#privacy">Privacy Policy</a></li>
+                            <li><a href="#contact">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-2">Resources</h4>
+                        <ul class="text-gray-400">
+                            <li><a href="#blog">Blog</a></li>
+                            <li><a href="#case-studies">Case Studies</a></li>
+                            <li><a href="#webinars">Webinars</a></li>
+                            <li><a href="#ebooks">Ebooks</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-2">Contact</h4>
+                        <ul class="text-gray-400">
+                            <li>Email: info@epineon.com</li>
+                            <li>Phone: +1 (555) 123-4567</li>
+                            <li>Address: 123 Main St, Anytown USA</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 text-center text-gray-400">
+                <p>&copy; 2023 Epineon. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script>
+        // Map style options
+        const MAP_STYLES = {
+            dark: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+            light: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+            satellite: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+            streets: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        };
+
+        // Initialize map
+        let map = null;
+        let currentStyle = "dark";
+        let cursorPosition = { x: 0, y: 0 };
+        let viewportSize = {
+            width: window.innerWidth,
+            height: window.innerHeight
+        };
+        let animationFrameId = null;
+
+        function initMap() {
+            if (!map) {
+                map = L.map('map', {
+                    center: [20, 0],
+                    zoom: 2,
+                    zoomControl: false,
+                    attributionControl: false,
+                    dragging: false,
+                    scrollWheelZoom: false,
+                    doubleClickZoom: false,
+                    boxZoom: false,
+                    keyboard: false,
+                    tap: false,
+                    touchZoom: false
+                });
+
+                L.tileLayer(MAP_STYLES[currentStyle], {
+                    maxZoom: 19,
+                    attribution: ""
+                }).addTo(map);
+            }
+        }
+
+        // Handle window resize
+        function handleResize() {
+            viewportSize = {
+                width: window.innerWidth,
+                height: window.innerHeight
+            };
+            if (map) {
+                map.invalidateSize();
+            }
+        }
+
+        // Track cursor position
+        function handleMouseMove(e) {
+            cursorPosition = {
+                x: e.clientX,
+                y: e.clientY
+            };
+            
+            // Update cursor indicator position
+            const cursorIndicator = document.getElementById('cursor-indicator');
+            cursorIndicator.style.left = `${e.clientX}px`;
+            cursorIndicator.style.top = `${e.clientY}px`;
+        }
+
+        // Animate map movement
+        function animateMap() {
+            if (!map) return;
+
+            const center = map.getCenter();
+            const centerX = viewportSize.width / 2;
+            const centerY = viewportSize.height / 2;
+
+            const offsetX = (cursorPosition.x - centerX) / centerX;
+            const offsetY = (cursorPosition.y - centerY) / centerY;
+
+            const newLng = center.lng + offsetX * 0.1;
+            const newLat = center.lat - offsetY * 0.05;
+
+            map.setView([newLat, newLng], map.getZoom(), {
+                animate: true,
+                duration: 0.5
+            });
+
+            animationFrameId = requestAnimationFrame(animateMap);
+        }
+
+        // Change map style
+        function changeMapStyle(style) {
+            if (!map) return;
+            
+            currentStyle = style;
+            map.eachLayer((layer) => {
+                if (layer instanceof L.TileLayer) {
+                    map.removeLayer(layer);
+                }
+            });
+
+            L.tileLayer(MAP_STYLES[style], {
+                maxZoom: 19,
+                attribution: ""
+            }).addTo(map);
+
+            // Update active button
+            document.querySelectorAll('.style-button').forEach(button => {
+                button.classList.toggle('active', button.dataset.style === style);
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            initMap();
+            window.addEventListener('resize', handleResize);
+            window.addEventListener('mousemove', handleMouseMove);
+            animateMap();
+
+            // Add style switcher event listeners
+            document.querySelectorAll('.style-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    changeMapStyle(button.dataset.style);
+                });
+            });
+        });
+
+        // Cleanup
+        window.addEventListener('beforeunload', () => {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+            if (map) {
+                map.remove();
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('active');
+            mobileMenuOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+        mobileMenuClose.addEventListener('click', toggleMobileMenu);
+        mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+
+        // Demo interaction script
+        const demoSteps = document.querySelectorAll('.demo-step');
+        const progressBars = document.querySelectorAll('.progress-bar');
+        let currentStep = 0;
+
+        function updateDemo() {
+            demoSteps.forEach((step, index) => {
+                if (index === currentStep) {
+                    step.classList.add('active');
+                    progressBars[index].classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                    progressBars[index].classList.remove('active');
+                }
+            });
+        }
+
+        demoSteps.forEach((step, index) => {
+            step.addEventListener('click', () => {
+                currentStep = index;
+                updateDemo();
+            });
+        });
+
+        // Auto-advance demo
+        setInterval(() => {
+            currentStep = (currentStep + 1) % demoSteps.length;
+            updateDemo();
+        }, 5000);
+    </script>
+
+    <!-- Add Three.js and OrbitControls -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('globe');
+            if (!container) {
+                console.error('Globe container not found');
+                return;
+            }
+
+            try {
+                // Scene setup
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                renderer.setSize(container.clientWidth, container.clientHeight);
+                renderer.setPixelRatio(window.devicePixelRatio);
+                container.appendChild(renderer.domElement);
+
+                // Create starfield
+                const starsGeometry = new THREE.BufferGeometry();
+                const starsCount = 5000;
+                const positions = new Float32Array(starsCount * 3);
+                for (let i = 0; i < starsCount; i++) {
+                    positions[i * 3] = (Math.random() - 0.5) * 2000;
+                    positions[i * 3 + 1] = (Math.random() - 0.5) * 2000;
+                    positions[i * 3 + 2] = (Math.random() - 0.5) * 2000;
+                }
+                starsGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+                const starsMaterial = new THREE.PointsMaterial({
+                    color: 0xffffff,
+                    size: 0.7,
+                    sizeAttenuation: true,
+                });
+                const stars = new THREE.Points(starsGeometry, starsMaterial);
+                scene.add(stars);
+
+                // Create atmosphere glow
+                const atmosphereGeometry = new THREE.SphereGeometry(5.2, 32, 32);
+                const atmosphereMaterial = new THREE.ShaderMaterial({
+                    vertexShader: `
+                        varying vec3 vNormal;
+                        void main() {
+                            vNormal = normalize(normalMatrix * normal);
+                            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                        }
+                    `,
+                    fragmentShader: `
+                        uniform vec3 glowColor;
+                        varying vec3 vNormal;
+                        void main() {
+                            float intensity = pow(0.6 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.0);
+                            gl_FragColor = vec4(glowColor, 1.0) * intensity;
+                        }
+                    `,
+                    blending: THREE.AdditiveBlending,
+                    side: THREE.BackSide,
+                    transparent: true,
+                    uniforms: {
+                        glowColor: { value: new THREE.Color(0x3a86ff) },
+                    },
+                });
+                const atmosphereMesh = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
+                scene.add(atmosphereMesh);
+
+                // Create wireframe globe
+                const wireframeGeometry = new THREE.SphereGeometry(5, 32, 32);
+                const wireframeMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x3a86ff,
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.5,
+                });
+                const wireframeGlobe = new THREE.Mesh(wireframeGeometry, wireframeMaterial);
+                scene.add(wireframeGlobe);
+
+                // Create solid globe
+                const solidGeometry = new THREE.SphereGeometry(4.9, 64, 64);
+                const solidMaterial = new THREE.MeshPhongMaterial({
+                    color: 0x1a237e,
+                    transparent: true,
+                    opacity: 0,
+                    shininess: 5,
+                });
+                const solidGlobe = new THREE.Mesh(solidGeometry, solidMaterial);
+                scene.add(solidGlobe);
+
+                // Add lights
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+                scene.add(ambientLight);
+
+                const pointLight = new THREE.PointLight(0xffffff, 1);
+                pointLight.position.set(10, 10, 10);
+                scene.add(pointLight);
+
+                camera.position.z = 10;
+
+                // Add OrbitControls
+                const controls = new THREE.OrbitControls(camera, renderer.domElement);
+                controls.enableDamping = true;
+                controls.dampingFactor = 0.05;
+                controls.rotateSpeed = 0.5;
+                controls.enableZoom = false;
+
+                // Color transition setup
+                const colors = [
+                    new THREE.Color(0x3a86ff), // Blue
+                    new THREE.Color(0x8338ec), // Purple
+                    new THREE.Color(0xff006e), // Pink
+                    new THREE.Color(0xfb5607), // Orange
+                    new THREE.Color(0xffbe0b), // Yellow
+                ];
+                let colorIndex = 0;
+                let nextColorIndex = 1;
+                let colorT = 0;
+                const colorTransitionSpeed = 0.005;
+
+                const lerpColor = (a, b, t) => {
+                    const color = new THREE.Color();
+                    color.r = a.r + (b.r - a.r) * t;
+                    color.g = a.g + (b.g - a.g) * t;
+                    color.b = a.b + (b.b - a.b) * t;
+                    return color;
+                };
+
+                // Load textures
+                const textureLoader = new THREE.TextureLoader();
+                Promise.all([
+                    new Promise(resolve => textureLoader.load("https://unpkg.com/three-globe@2.24.10/example/img/earth-blue-marble.jpg", resolve)),
+                    new Promise(resolve => textureLoader.load("https://unpkg.com/three-globe@2.24.10/example/img/earth-topology.png", resolve)),
+                    new Promise(resolve => textureLoader.load("https://unpkg.com/three-globe@2.24.10/example/img/earth-water.png", resolve))
+                ]).then(([texture, bumpMap, specularMap]) => {
+                    const highResMaterial = new THREE.MeshPhongMaterial({
+                        map: texture,
+                        bumpMap: bumpMap,
+                        bumpScale: 0.05,
+                        specularMap: specularMap,
+                        specular: new THREE.Color("grey"),
+                        shininess: 5,
+                    });
+
+                    // Transition to high-res textured globe
+                    const transitionDuration = 1.5;
+                    const startTime = Date.now();
+
+                    const transitionToHighRes = () => {
+                        const elapsedTime = (Date.now() - startTime) / 1000;
+                        const progress = Math.min(elapsedTime / transitionDuration, 1);
+
+                        solidGlobe.material = highResMaterial;
+                        solidGlobe.material.opacity = progress;
+                        wireframeMaterial.opacity = 0.5 * (1 - progress);
+
+                        if (progress < 1) {
+                            requestAnimationFrame(transitionToHighRes);
+                        } else {
+                            wireframeMaterial.opacity = 0.1;
+                        }
+                        renderer.render(scene, camera);
+                    };
+
+                    transitionToHighRes();
+                });
+
+                // Animation
+                function animate() {
+                    requestAnimationFrame(animate);
+
+                    // Color transition
+                    colorT += colorTransitionSpeed;
+                    if (colorT >= 1) {
+                        colorT = 0;
+                        colorIndex = nextColorIndex;
+                        nextColorIndex = (nextColorIndex + 1) % colors.length;
+                    }
+
+                    const currentColor = lerpColor(colors[colorIndex], colors[nextColorIndex], colorT);
+                    atmosphereMaterial.uniforms.glowColor.value = currentColor;
+
+                    // Rotate objects
+                    wireframeGlobe.rotation.y += 0.001;
+                    solidGlobe.rotation.y += 0.001;
+                    atmosphereMesh.rotation.y += 0.0005;
+                    stars.rotation.y += 0.0001;
+
+                    controls.update();
+                    renderer.render(scene, camera);
+                }
+
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    const width = container.clientWidth;
+                    const height = container.clientHeight;
+                    camera.aspect = width / height;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(width, height);
+                });
+
+                animate();
+                console.log('Globe initialized successfully');
+            } catch (error) {
+                console.error('Error initializing globe:', error);
+            }
+        });
+    </script>
+
+    <!-- Add this before the closing body tag -->
+    <script>
+        // Counter animation function
+        function animateCounter(element) {
+            const target = parseInt(element.getAttribute('data-target'));
+            const duration = 2000; // 2 seconds
+            const step = target / (duration / 16); // 60fps
+            let current = 0;
+
+            const updateCounter = () => {
+                current += step;
+                if (current < target) {
+                    element.textContent = Math.floor(current);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = target;
+                }
+            };
+
+            updateCounter();
+        }
+
+        // Progress bar animation function
+        function animateProgressBar(progressBar) {
+            const duration = 2000; // 2 seconds
+            const startTime = performance.now();
+            
+            const updateProgress = (currentTime) => {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                progressBar.style.width = `${progress * 100}%`;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateProgress);
+                }
+            };
+
+            requestAnimationFrame(updateProgress);
+        }
+
+        // Intersection Observer for animation triggers
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Animate counters
+                    entry.target.querySelectorAll('.counter').forEach(counter => {
+                        animateCounter(counter);
+                    });
+                    
+                    // Animate progress bars
+                    entry.target.querySelectorAll('.h-full').forEach(progressBar => {
+                        animateProgressBar(progressBar);
+                    });
+                    
+                    // Unobserve after animation
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        // Observe the benefits section
+        const benefitsSection = document.getElementById('benefits');
+        if (benefitsSection) {
+            observer.observe(benefitsSection);
+        }
+    </script>
+</body>
+</html>
